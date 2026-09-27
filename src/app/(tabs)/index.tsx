@@ -50,6 +50,23 @@ export default function HomeScreen() {
         </Pressable>
       </View>
 
+      {/* TEMP: PIN login preview button — remove after testing */}
+      <View style={{ paddingHorizontal: 20, marginBottom: 16 }}>
+        <Pressable
+          onPress={() => router.push('/pin-login')}
+          style={{
+            backgroundColor: '#FDECEA',
+            borderRadius: 10,
+            paddingVertical: 10,
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 12, color: '#C0392B', fontWeight: '700' }}>
+            🧪 TEST: View PIN Login Screen
+          </Text>
+        </Pressable>
+      </View>
+
       {/* Search Bar */}
       <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
         <View

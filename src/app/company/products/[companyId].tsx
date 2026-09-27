@@ -1,6 +1,8 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { FlatList, Pressable, Text, View } from 'react-native';
 
+import { useCart } from '@/context/CartContext';
+
 const PRODUCTS: Record<string, { id: string; name: string; description: string; price: number }[]> = {
   '6ab0ca39fc3ba127b7ac2e16': [
     { id: 'p1', name: 'Halwo (500g)', description: 'Halwo dabacsan oo dhadhan macaan leh', price: 5 },
@@ -12,15 +14,33 @@ const PRODUCTS: Record<string, { id: string; name: string; description: string; 
 export default function ProductListScreen() {
   const { companyId } = useLocalSearchParams<{ companyId: string }>();
   const router = useRouter();
+  const { addToCart, totalItems } = useCart();
   const products = PRODUCTS[companyId] || [];
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F7F8FA', paddingTop: 60 }}>
       <Stack.Screen options={{ title: 'Alaabta' }} />
 
-      <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#0F4C33', marginBottom: 16, paddingHorizontal: 16 }}>
-        Alaabta
-      </Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, marginBottom: 16 }}>
+        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#0F4C33' }}>
+          Alaabta
+        </Text>
+        {totalItems > 0 && (
+          <Pressable
+            onPress={() => router.push('/cart')}
+            style={{
+              backgroundColor: '#0F4C33',
+              paddingHorizontal: 14,
+              paddingVertical: 8,
+              borderRadius: 20,
+            }}
+          >
+            <Text style={{ color: 'white', fontWeight: '700', fontSize: 13 }}>
+              🛒 {totalItems}
+            </Text>
+          </Pressable>
+        )}
+      </View>
 
       {products.length === 0 ? (
         <Text style={{ fontSize: 16, color: '#666', paddingHorizontal: 16 }}>
@@ -53,6 +73,7 @@ export default function ProductListScreen() {
                 <Text style={{ fontSize: 15, fontWeight: '700', color: '#0F4C33', marginTop: 6 }}>${item.price}</Text>
               </View>
               <Pressable
+                onPress={() => addToCart({ id: item.id, name: item.name, price: item.price })}
                 style={{
                   backgroundColor: '#0F4C33',
                   paddingHorizontal: 16,

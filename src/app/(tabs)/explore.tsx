@@ -3,7 +3,7 @@ import { FlatList, Pressable, Text, View } from 'react-native';
 
 const CATEGORIES = [
   { id: 'retail', name: 'Supermarket', emoji: '🛒', color: '#E8F4EA' },
-  { id: 'telecom', name: 'Electronics', emoji: '📱', color: '#E8EEF9' },
+  { id: 'Electronics', name: 'Electronics', emoji: '📱', color: '#E8EEF9' },
   { id: 'university', name: 'University', emoji: '🎓', color: '#F3E9F9' },
   { id: 'mechanic', name: 'Oil change', emoji: '🔧', color: '#FDF0E3' },
   { id: 'solar', name: 'Solar system', emoji: '☀️', color: '#FEF6E0' },
