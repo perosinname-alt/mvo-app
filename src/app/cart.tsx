@@ -2,19 +2,21 @@ import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
 import { useCart } from '@/context/CartContext';
+import { useAppTheme } from '@/context/ThemeContext';
 
 export default function CartScreen() {
   const router = useRouter();
+  const { colors } = useAppTheme();
   const { items, increaseQuantity, decreaseQuantity, removeFromCart, totalPrice } = useCart();
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#F7F8FA', paddingTop: 60 }}>
-      <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#0F4C33', marginBottom: 16, paddingHorizontal: 16 }}>
+    <View style={{ flex: 1, backgroundColor: colors.background, paddingTop: 60 }}>
+      <Text style={{ fontSize: 22, fontWeight: 'bold', color: colors.accent, marginBottom: 16, paddingHorizontal: 16 }}>
         Cart-kaaga
       </Text>
 
       {items.length === 0 ? (
-        <Text style={{ fontSize: 16, color: '#666', paddingHorizontal: 16 }}>
+        <Text style={{ fontSize: 16, color: colors.subtext, paddingHorizontal: 16 }}>
           Cart-ku waa faaruq. Ku noqo dukaanka oo alaab ku dar.
         </Text>
       ) : (
@@ -24,7 +26,7 @@ export default function CartScreen() {
               <View
                 key={item.id}
                 style={{
-                  backgroundColor: 'white',
+                  backgroundColor: colors.card,
                   borderRadius: 14,
                   padding: 16,
                   marginBottom: 12,
@@ -38,12 +40,12 @@ export default function CartScreen() {
                 }}
               >
                 <View style={{ flex: 1, marginRight: 12 }}>
-                  <Text style={{ fontSize: 16, fontWeight: '700' }}>{item.name}</Text>
-                  <Text style={{ fontSize: 14, color: '#0F4C33', fontWeight: '600', marginTop: 4 }}>
+                  <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text }}>{item.name}</Text>
+                  <Text style={{ fontSize: 14, color: colors.accent, fontWeight: '600', marginTop: 4 }}>
                     ${item.price} x {item.quantity} = ${item.price * item.quantity}
                   </Text>
                   <Pressable onPress={() => removeFromCart(item.id)} style={{ marginTop: 6 }}>
-                    <Text style={{ fontSize: 12, color: '#C0392B' }}>Ka saar</Text>
+                    <Text style={{ fontSize: 12, color: '#E74C3C' }}>Ka saar</Text>
                   </Pressable>
                 </View>
 
@@ -54,26 +56,26 @@ export default function CartScreen() {
                       width: 32,
                       height: 32,
                       borderRadius: 8,
-                      backgroundColor: '#F0F7F3',
+                      backgroundColor: colors.primarySoft,
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
                   >
-                    <Text style={{ fontSize: 18, fontWeight: '700', color: '#0F4C33' }}>−</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '700', color: colors.accent }}>−</Text>
                   </Pressable>
-                  <Text style={{ fontSize: 16, fontWeight: '700', marginHorizontal: 12 }}>{item.quantity}</Text>
+                  <Text style={{ fontSize: 16, fontWeight: '700', marginHorizontal: 12, color: colors.text }}>{item.quantity}</Text>
                   <Pressable
                     onPress={() => increaseQuantity(item.id)}
                     style={{
                       width: 32,
                       height: 32,
                       borderRadius: 8,
-                      backgroundColor: '#F0F7F3',
+                      backgroundColor: colors.primarySoft,
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
                   >
-                    <Text style={{ fontSize: 18, fontWeight: '700', color: '#0F4C33' }}>+</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '700', color: colors.accent }}>+</Text>
                   </Pressable>
                 </View>
               </View>
@@ -84,18 +86,18 @@ export default function CartScreen() {
             style={{
               padding: 16,
               borderTopWidth: 1,
-              borderTopColor: '#E5E5E5',
-              backgroundColor: 'white',
+              borderTopColor: colors.border,
+              backgroundColor: colors.card,
             }}
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
-              <Text style={{ fontSize: 16, fontWeight: '600' }}>Wadarta guud</Text>
-              <Text style={{ fontSize: 18, fontWeight: '800', color: '#0F4C33' }}>${totalPrice}</Text>
+              <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text }}>Wadarta guud</Text>
+              <Text style={{ fontSize: 18, fontWeight: '800', color: colors.accent }}>${totalPrice}</Text>
             </View>
             <Pressable
               onPress={() => router.push('/checkout')}
               style={{
-                backgroundColor: '#0F4C33',
+                backgroundColor: colors.primary,
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: 'center',

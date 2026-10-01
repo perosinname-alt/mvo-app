@@ -1,3 +1,4 @@
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
@@ -19,19 +20,12 @@ export default function RegisterScreen() {
     >
       {/* Logo */}
       <View style={{ alignItems: 'center', marginBottom: 24 }}>
-        <View
-          style={{
-            width: 56,
-            height: 56,
-            borderRadius: 16,
-            backgroundColor: '#0F4C33',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 20, fontWeight: '700' }}>MVO</Text>
-        </View>
+        <Image
+          source={require('@/assets/images/mvo-logo.png')}
+          style={{ width: 64, height: 64, borderRadius: 18, marginBottom: 10 }}
+          contentFit="contain"
+        />
+        <Text style={{ fontSize: 22, fontWeight: '800', color: '#2ECC71' }}>MVO</Text>
       </View>
 
       <Text style={{ fontSize: 26, fontWeight: '800', color: 'white', textAlign: 'center', marginBottom: 8 }}>

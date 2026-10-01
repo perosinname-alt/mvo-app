@@ -2,6 +2,8 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Dimensions, FlatList, Pressable, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
+import { useAppTheme } from '@/context/ThemeContext';
+
 const COMPANIES: Record<string, { id: string; name: string; city: string; latitude: number; longitude: number }[]> = {
   retail: [
     { id: '6ab0ca39fc3ba127b7ac2e16', name: 'Xalwo Kismaayo', city: 'Bosaso', latitude: 11.2842, longitude: 49.1816 },
@@ -18,19 +20,20 @@ const COMPANIES: Record<string, { id: string; name: string; city: string; latitu
 export default function CompanyListScreen() {
   const { type } = useLocalSearchParams<{ type: string }>();
   const router = useRouter();
+  const { colors } = useAppTheme();
   const companies = COMPANIES[type] || [];
   const screenWidth = Dimensions.get('window').width;
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#F7F8FA', paddingTop: 60 }}>
+    <View style={{ flex: 1, backgroundColor: colors.background, paddingTop: 60 }}>
       <Stack.Screen options={{ title: type }} />
 
-      <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#0F4C33', marginBottom: 16, paddingHorizontal: 16 }}>
+      <Text style={{ fontSize: 22, fontWeight: 'bold', color: colors.accent, marginBottom: 16, paddingHorizontal: 16 }}>
         {type}
       </Text>
 
       {companies.length === 0 ? (
-        <Text style={{ fontSize: 16, color: '#666', paddingHorizontal: 16 }}>
+        <Text style={{ fontSize: 16, color: colors.subtext, paddingHorizontal: 16 }}>
           Weli companies lagama darin qaybtan.
         </Text>
       ) : (
@@ -62,14 +65,14 @@ export default function CompanyListScreen() {
               <Pressable
                 onPress={() => router.push({ pathname: '/company/products/[companyId]', params: { companyId: item.id } })}
                 style={{
-                  backgroundColor: 'white',
+                  backgroundColor: colors.card,
                   borderRadius: 12,
                   padding: 16,
                   marginBottom: 12,
                 }}
               >
-                <Text style={{ fontSize: 18, fontWeight: '600' }}>{item.name}</Text>
-                <Text style={{ fontSize: 14, color: '#666' }}>{item.city}</Text>
+                <Text style={{ fontSize: 18, fontWeight: '600', color: colors.text }}>{item.name}</Text>
+                <Text style={{ fontSize: 14, color: colors.subtext }}>{item.city}</Text>
               </Pressable>
             )}
           />
