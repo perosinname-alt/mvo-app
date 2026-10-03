@@ -29,9 +29,39 @@ const TRANSACTIONS = [
 const REFERRAL_CODE = "MVO-7K2X9";
 const REFERRAL_REWARD = 2;
 
+const CARD_NUMBER = "4521 88•• •••• 3092";
+const CARD_HOLDER = "MOHAMED NOUR";
+const CARD_EXPIRY = "09/29";
+
+function MastercardLogo() {
+  return (
+    <View style={{ flexDirection: "row", width: 46, height: 28 }}>
+      <View
+        style={{
+          width: 28,
+          height: 28,
+          borderRadius: 14,
+          backgroundColor: "#EB001B",
+        }}
+      />
+      <View
+        style={{
+          width: 28,
+          height: 28,
+          borderRadius: 14,
+          backgroundColor: "#F79E1B",
+          marginLeft: -12,
+          opacity: 0.9,
+        }}
+      />
+    </View>
+  );
+}
+
 export default function WalletScreen() {
   const { colors } = useAppTheme();
   const [showBalance, setShowBalance] = useState(true);
+  const [showCardNumber, setShowCardNumber] = useState(false);
 
   function handleWalletAction(label: string) {
     Alert.alert(label, "Tan dhawaan ayaa la diyaarin doonaa.");
@@ -76,7 +106,7 @@ export default function WalletScreen() {
           backgroundColor: "#0F4C33",
           borderRadius: 20,
           padding: 20,
-          marginBottom: 24,
+          marginBottom: 20,
           shadowColor: "#000",
           shadowOpacity: 0.12,
           shadowRadius: 10,
@@ -134,6 +164,144 @@ export default function WalletScreen() {
               </Text>
             </Pressable>
           ))}
+        </View>
+      </View>
+
+      {/* MVO Mastercard */}
+      <Text
+        style={{
+          fontSize: 15,
+          fontWeight: "700",
+          color: colors.text,
+          marginBottom: 10,
+        }}
+      >
+        Kaarkaaga
+      </Text>
+      <View
+        style={{
+          backgroundColor: "#0B3D28",
+          borderRadius: 20,
+          padding: 22,
+          marginBottom: 24,
+          height: 190,
+          justifyContent: "space-between",
+          shadowColor: "#000",
+          shadowOpacity: 0.2,
+          shadowRadius: 14,
+          shadowOffset: { width: 0, height: 8 },
+          elevation: 6,
+          overflow: "hidden",
+        }}
+      >
+        {/* decorative circles */}
+        <View
+          style={{
+            position: "absolute",
+            top: -40,
+            right: -30,
+            width: 140,
+            height: 140,
+            borderRadius: 70,
+            backgroundColor: "rgba(255,255,255,0.05)",
+          }}
+        />
+        <View
+          style={{
+            position: "absolute",
+            bottom: -50,
+            left: -20,
+            width: 120,
+            height: 120,
+            borderRadius: 60,
+            backgroundColor: "rgba(255,255,255,0.04)",
+          }}
+        />
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 20,
+              fontWeight: "800",
+              letterSpacing: 1,
+            }}
+          >
+            MVO
+          </Text>
+          <View
+            style={{
+              width: 34,
+              height: 26,
+              borderRadius: 5,
+              backgroundColor: "#D4AF37",
+              opacity: 0.85,
+            }}
+          />
+        </View>
+
+        <Pressable onPress={() => setShowCardNumber(!showCardNumber)}>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 19,
+              fontWeight: "700",
+              letterSpacing: 2,
+            }}
+          >
+            {showCardNumber ? "4521 8842 1190 3092" : CARD_NUMBER}
+          </Text>
+        </Pressable>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+          }}
+        >
+          <View>
+            <Text
+              style={{
+                color: "rgba(255,255,255,0.6)",
+                fontSize: 10,
+                marginBottom: 3,
+              }}
+            >
+              CARD HOLDER
+            </Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 13.5,
+                fontWeight: "700",
+                letterSpacing: 0.5,
+              }}
+            >
+              {CARD_HOLDER}
+            </Text>
+          </View>
+          <View style={{ alignItems: "flex-end" }}>
+            <Text
+              style={{
+                color: "rgba(255,255,255,0.6)",
+                fontSize: 10,
+                marginBottom: 3,
+              }}
+            >
+              EXPIRES
+            </Text>
+            <Text style={{ color: "white", fontSize: 13.5, fontWeight: "700" }}>
+              {CARD_EXPIRY}
+            </Text>
+          </View>
+          <MastercardLogo />
         </View>
       </View>
 
