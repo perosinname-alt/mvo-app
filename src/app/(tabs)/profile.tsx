@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { ReactNode, useState } from "react";
 import { Alert, Pressable, ScrollView, Switch, Text, View } from "react-native";
 
+import { useAuth } from "@/context/AuthContext";
 import { useAppTheme } from "@/context/ThemeContext";
 
 function SettingRow({
@@ -57,16 +58,13 @@ function SettingRow({
 export default function ProfileScreen() {
   const router = useRouter();
   const { isDark, colors, toggleTheme } = useAppTheme();
+  const { user, signOut } = useAuth();
   const [notificationsOn, setNotificationsOn] = useState(true);
 
   function handleLogout() {
     Alert.alert("Ka bax", "Ma hubtaa inaad ka baxayso?", [
       { text: "Maya", style: "cancel" },
-      {
-        text: "Haa, ka bax",
-        style: "destructive",
-        onPress: () => router.replace("/login"),
-      },
+      { text: "Haa, ka bax", style: "destructive", onPress: () => signOut() },
     ]);
   }
 
@@ -137,14 +135,30 @@ export default function ProfileScreen() {
         >
           <Text style={{ fontSize: 26 }}>👤</Text>
         </View>
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 18, fontWeight: "800", color: colors.text }}>
-            Customer
+            {user?.name ?? "Customer"}
           </Text>
           <Text style={{ fontSize: 13, color: colors.subtext, marginTop: 2 }}>
-            Akoon tijaabo ah
+            {user?.email ?? ""}
           </Text>
         </View>
+      </View>
+
+      {/* Business */}
+      <Text style={sectionTitle}>Ganacsiga</Text>
+      <View style={cardStyle}>
+        <SettingRow
+          emoji="🏪"
+          label="Shirkadahayga"
+          onPress={() => router.push("/my-companies")}
+        />
+        <SettingRow
+          emoji="➕"
+          label="Ganacsigaaga ku bilow"
+          onPress={() => router.push("/create-company")}
+          isLast
+        />
       </View>
 
       {/* Appearance */}

@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system/legacy";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
@@ -107,7 +108,7 @@ export default function TransactionsScreen() {
             borderColor: colors.border,
           }}
         >
-          <Text style={{ fontSize: 16 }}>🖨️</Text>
+          <Ionicons name="print-outline" size={18} color={colors.text} />
           <Text style={{ fontSize: 14, fontWeight: "700", color: colors.text }}>
             Print
           </Text>
@@ -125,7 +126,7 @@ export default function TransactionsScreen() {
             paddingVertical: 13,
           }}
         >
-          <Text style={{ fontSize: 16 }}>📊</Text>
+          <Ionicons name="grid-outline" size={18} color="white" />
           <Text style={{ fontSize: 14, fontWeight: "700", color: "white" }}>
             Excel
           </Text>

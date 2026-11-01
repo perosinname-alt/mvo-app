@@ -1,4 +1,4 @@
-import { Image } from "expo-image";
+import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { Alert, Pressable, ScrollView, Switch, Text, View } from "react-native";
 
@@ -29,6 +29,91 @@ function MastercardLogo() {
           opacity: 0.9,
         }}
       />
+    </View>
+  );
+}
+
+function CardPreview({ frozen }: { frozen: boolean }) {
+  return (
+    <View
+      style={{
+        backgroundColor: "#1C1C1E",
+        borderRadius: 18,
+        padding: 20,
+        height: 170,
+        justifyContent: "space-between",
+        overflow: "hidden",
+        opacity: frozen ? 0.5 : 1,
+      }}
+    >
+      {/* Top row: chip + contactless + wordmark */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+        }}
+      >
+        <View
+          style={{
+            width: 34,
+            height: 26,
+            borderRadius: 5,
+            backgroundColor: "#D4AF37",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Ionicons name="hardware-chip-outline" size={16} color="#4A3B0A" />
+        </View>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 15,
+            fontWeight: "800",
+            letterSpacing: 1,
+          }}
+        >
+          MVO
+        </Text>
+      </View>
+
+      <Text
+        style={{
+          color: "white",
+          fontSize: 16.5,
+          fontWeight: "700",
+          letterSpacing: 2,
+        }}
+      >
+        {CARD_NUMBER}
+      </Text>
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <View>
+          <Text style={{ color: "rgba(255,255,255,0.5)", fontSize: 9 }}>
+            CARD HOLDER
+          </Text>
+          <Text style={{ color: "white", fontSize: 12.5, fontWeight: "700" }}>
+            {CARD_HOLDER}
+          </Text>
+        </View>
+        <View style={{ alignItems: "flex-end" }}>
+          <Text style={{ color: "rgba(255,255,255,0.5)", fontSize: 9 }}>
+            EXPIRES
+          </Text>
+          <Text style={{ color: "white", fontSize: 12.5, fontWeight: "700" }}>
+            {CARD_EXPIRY}
+          </Text>
+        </View>
+        <MastercardLogo />
+      </View>
     </View>
   );
 }
@@ -71,76 +156,8 @@ export default function ManageCardScreen() {
       style={{ flex: 1, backgroundColor: colors.background }}
       contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
     >
-      {/* Mini card preview */}
-      <View
-        style={{
-          backgroundColor: "#0B3D28",
-          borderRadius: 18,
-          padding: 20,
-          marginBottom: 24,
-          height: 170,
-          justifyContent: "space-between",
-          overflow: "hidden",
-          opacity: frozen ? 0.5 : 1,
-        }}
-      >
-        <Image
-          source={require("@/assets/images/mvo-logo.png")}
-          style={{
-            position: "absolute",
-            right: -30,
-            top: -30,
-            width: 150,
-            height: 150,
-            opacity: 0.12,
-          }}
-          contentFit="contain"
-        />
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-          <Image
-            source={require("@/assets/images/mvo-logo.png")}
-            style={{ width: 24, height: 24, borderRadius: 6 }}
-            contentFit="contain"
-          />
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "800" }}>
-            MVO
-          </Text>
-        </View>
-        <Text
-          style={{
-            color: "white",
-            fontSize: 17,
-            fontWeight: "700",
-            letterSpacing: 2,
-          }}
-        >
-          {CARD_NUMBER}
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-        >
-          <View>
-            <Text style={{ color: "rgba(255,255,255,0.6)", fontSize: 9 }}>
-              CARD HOLDER
-            </Text>
-            <Text style={{ color: "white", fontSize: 12.5, fontWeight: "700" }}>
-              {CARD_HOLDER}
-            </Text>
-          </View>
-          <View style={{ alignItems: "flex-end" }}>
-            <Text style={{ color: "rgba(255,255,255,0.6)", fontSize: 9 }}>
-              EXPIRES
-            </Text>
-            <Text style={{ color: "white", fontSize: 12.5, fontWeight: "700" }}>
-              {CARD_EXPIRY}
-            </Text>
-          </View>
-          <MastercardLogo />
-        </View>
+      <View style={{ marginBottom: 24 }}>
+        <CardPreview frozen={frozen} />
       </View>
 
       {frozen && (
@@ -168,7 +185,7 @@ export default function ManageCardScreen() {
       {/* Freeze toggle */}
       <View style={rowStyle}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-          <Text style={{ fontSize: 20 }}>🧊</Text>
+          <Ionicons name="snow-outline" size={20} color={colors.text} />
           <View>
             <Text
               style={{ fontSize: 15, fontWeight: "700", color: colors.text }}
@@ -193,12 +210,12 @@ export default function ManageCardScreen() {
       {/* Other actions */}
       <Pressable onPress={() => handleAction("Beddel PIN-ka")} style={rowStyle}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-          <Text style={{ fontSize: 20 }}>🔢</Text>
+          <Ionicons name="keypad-outline" size={20} color={colors.text} />
           <Text style={{ fontSize: 15, fontWeight: "700", color: colors.text }}>
             Beddel PIN-ka Kaarka
           </Text>
         </View>
-        <Text style={{ fontSize: 16, color: colors.subtext }}>›</Text>
+        <Ionicons name="chevron-forward" size={18} color={colors.subtext} />
       </Pressable>
 
       <Pressable
@@ -206,12 +223,34 @@ export default function ManageCardScreen() {
         style={rowStyle}
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-          <Text style={{ fontSize: 20 }}>📊</Text>
+          <Ionicons name="stats-chart-outline" size={20} color={colors.text} />
           <Text style={{ fontSize: 15, fontWeight: "700", color: colors.text }}>
             Xaddiga Isticmaalka
           </Text>
         </View>
-        <Text style={{ fontSize: 16, color: colors.subtext }}>›</Text>
+        <Ionicons name="chevron-forward" size={18} color={colors.subtext} />
+      </Pressable>
+
+      <Pressable
+        onPress={() => handleAction("Xiriirka Golis")}
+        style={rowStyle}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+          <Ionicons name="link-outline" size={20} color={colors.text} />
+          <View>
+            <Text
+              style={{ fontSize: 15, fontWeight: "700", color: colors.text }}
+            >
+              Ku xir Kaarka Golis
+            </Text>
+            <Text
+              style={{ fontSize: 11.5, color: colors.subtext, marginTop: 2 }}
+            >
+              Weli lama diyaarin
+            </Text>
+          </View>
+        </View>
+        <Ionicons name="chevron-forward" size={18} color={colors.subtext} />
       </Pressable>
 
       <Pressable
